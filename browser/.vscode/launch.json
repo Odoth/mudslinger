@@ -1,0 +1,18 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "chrome",
+            "request": "launch",
+            "name": "Debug",
+            "preLaunchTask": "webpack: dev server",
+            "url": "http://localhost:8080",
+            "webRoot": "${workspaceFolder}",
+            "sourceMaps": true,
+            "trace": "verbose",
+            "skipFiles": [
+                "${workspaceRoot}/node_modules/**/*.js",
+            ]
+        }
+    ]
+  }
