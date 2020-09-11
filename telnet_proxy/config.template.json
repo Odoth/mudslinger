@@ -1,0 +1,10 @@
+{
+    "serverHost": "0.0.0.0",
+    "serverPort": 8088,
+    "adminHost": "localhost",
+    "adminPort": 8001,
+    "adminWebHost": "localhost",
+    "adminWebPort": 9001,
+    "apiBaseUrl": "",
+    "apiKey": ""
+}

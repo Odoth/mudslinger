@@ -1,0 +1,13 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "type": "npm",
+            "label": "build proxy",
+            "script": "build",
+            "promptOnClose": false,
+            "isBackground": false,
+            "problemMatcher": ["$tsc"]
+        }
+    ]
+}
