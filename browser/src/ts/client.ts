@@ -79,6 +79,10 @@ export class Client {
             this.outputManager.handleChangeDefaultBgColor(data[0], data[1]);
         });
 
+        this.menuBar.EvtChangeFontSize.handle((sz: string) => {
+            this.outputManager.handleChangeFontSize(sz);
+        });
+
         this.menuBar.EvtContactClicked.handle(() => {
             this.contactWin.show();
         });

@@ -9,8 +9,10 @@ import { ansiColorTuple, copyAnsiColorTuple, colorIdToHtml,
 
 export interface ConfigIf {
     set(key: "defaultAnsiFg" | "defaultAnsiBg", val: ansiColorTuple): void;
+    set(key: "fontSize", val: string): void;
     get(key: "defaultAnsiFg" | "defaultAnsiBg"): ansiColorTuple;
     get(key: "utf8Enabled"): boolean;
+    get(key: "fontSize"): string;
 }
 
 export class OutputManager {
@@ -53,6 +55,11 @@ export class OutputManager {
             this.setDefaultAnsiBg(defaultAnsiBg[0], defaultAnsiBg[1]);
         } else {
             this.setDefaultAnsiBg("black", "low");
+        }
+
+        let fontSize = this.config.get("fontSize");
+        if (fontSize) {
+            $(".outputText").css("font-size", fontSize);
         }
     }
 
@@ -281,6 +288,11 @@ export class OutputManager {
     handleChangeDefaultBgColor(name: string, level: string) {
         this.setDefaultAnsiBg(<ansiName>name, <ansiLevel>level);
         this.saveColorCfg();
+    }
+
+    handleChangeFontSize(sz: string) {
+        $(".outputText").css("font-size", sz);
+        this.config.set("fontSize", sz);
     }
 
     private saveColorCfg() {

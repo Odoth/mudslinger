@@ -10,6 +10,7 @@ import { AboutWin } from "./aboutWin";
 export class MenuBar {
     public EvtChangeDefaultColor = new EventHook<[string, string]>();
     public EvtChangeDefaultBgColor = new EventHook<[string, string]>();
+    public EvtChangeFontSize = new EventHook<string>();
     public EvtContactClicked = new EventHook<void>();
     public EvtConnectClicked = new EventHook<void>();
     public EvtDisconnectClicked = new EventHook<void>();
@@ -105,6 +106,12 @@ export class MenuBar {
             this.EvtChangeDefaultColor.fire(["black", "low"]);
             this.EvtChangeDefaultBgColor.fire(["white", "high"]);
         };
+
+        for (let sz of ['xx-small', 'x-small', 'small', 'medium', 'large', 'x-large', 'xx-large']) {
+            this.clickFuncs[sz] = () => {
+                this.EvtChangeFontSize.fire(sz);
+            }
+        }
 
         this.clickFuncs["Script"] = () => {
             this.jsScriptWin.show();
