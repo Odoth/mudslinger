@@ -18,6 +18,7 @@ export interface ConfigIf {
 export class OutputManager {
     public EvtMxpTag = new EventHook<string>();
     public EvtNewLine = new EventHook<void>();
+    public EvtFontSizeChanged = new EventHook<string>();
 
     private target: OutWinBase;
     private targetWindows: Array<OutWinBase>;
@@ -59,8 +60,17 @@ export class OutputManager {
 
         let fontSize = this.config.get("fontSize");
         if (fontSize) {
-            $(".outputText").css("font-size", fontSize);
+            this.setFontSize(fontSize);
         }
+    }
+
+    getFontSize(): string {
+        return $(".outputText").css("font-size");
+    }
+
+    private setFontSize(sz: string) {
+        $(".outputText").css("font-size", sz);
+        this.EvtFontSizeChanged.fire(sz);
     }
 
     private outputDone () {
@@ -291,7 +301,7 @@ export class OutputManager {
     }
 
     handleChangeFontSize(sz: string) {
-        $(".outputText").css("font-size", sz);
+        this.setFontSize(sz);
         this.config.set("fontSize", sz);
     }
 

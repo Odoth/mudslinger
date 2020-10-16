@@ -172,4 +172,8 @@ export class CommandInput {
             this.cmd_history = JSON.parse(cmds);
         }
     }
+
+    setFontSize(sz: string): void {
+        this.$cmdInput.css("font-size", sz);
+    }
 }

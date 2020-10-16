@@ -220,6 +220,12 @@ export class Client {
             this.mxp.handleMxpTag(data);
         });
 
+        this.outputManager.EvtFontSizeChanged.handle((sz: string) => {
+            this.commandInput.setFontSize(sz);
+        });
+
+        this.commandInput.setFontSize(this.outputManager.getFontSize());
+
         // Prevent navigating away accidentally
         window.onbeforeunload = () => {
             return "";
