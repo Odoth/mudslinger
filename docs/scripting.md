@@ -6,6 +6,8 @@ All scripts have access to the following scripting API functions:
 
 + **send(text)** - Send the text to the game. No return value.
 
+All scripts also share the same `this` object, allowing information to be shared between scripts or between calls of the same script. See Examples section.
+
 
 # Alias Scripts #
 
