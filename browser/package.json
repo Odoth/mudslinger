@@ -17,7 +17,7 @@
     "codemirror": "^5.24.2",
     "fs-extra": "^2.0.0",
     "html-webpack-plugin": "^4.3.0",
-    "jquery": "^2.2.4",
+    "jquery": "^3.5.0",
     "jqwidgets-framework": "^9.1.6",
     "moxios": "^0.4.0",
     "qunit": "^2.6.0",
