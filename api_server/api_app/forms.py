@@ -17,7 +17,7 @@ class ResetPasswordForm(FlaskForm):
 
     def validate_email(self, email):
         db = get_db()
-        row = db.execute("SELECT 1 FROM user WHERE email = ?", (email.data,)).fetchone()
+        row = db.execute("SELECT 1 FROM user WHERE lower(email) = lower(?)", (email.data,)).fetchone()
 
         if row is None:
             raise ValidationError('Email address is not registered.')
@@ -29,7 +29,7 @@ class RegistrationForm(FlaskForm):
 
     def validate_email(self, email):
         db = get_db()
-        row = db.execute("SELECT 1 FROM user WHERE email = ?", (email.data,)).fetchone()
+        row = db.execute("SELECT 1 FROM user WHERE lower(email) = lower(?)", (email.data,)).fetchone()
 
         if row is not None:
             raise ValidationError('Email address already registered.')

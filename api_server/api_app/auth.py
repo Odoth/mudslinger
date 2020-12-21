@@ -105,7 +105,7 @@ def register_confirm(sig):
     email = o['email']
 
     db = get_db()
-    row = db.execute("SELECT 1 FROM user WHERE email = ?", (email,)).fetchone()
+    row = db.execute("SELECT 1 FROM user WHERE lower(email) = lower(?)", (email,)).fetchone()
     if row is not None:
         flash(f'{email} is already registered.')
         return redirect(url_for('auth.login'))
@@ -131,13 +131,19 @@ def reset_password():
     form = ResetPasswordForm()
 
     if form.validate_on_submit():
-        sig = dump_sig(current_app, {'email': form.email.data}, RESET_SALT)
+        db = get_db()
+        user = db.execute(
+                "SELECT * FROM user WHERE lower(email) = lower(?)", (form.email.data,)
+                ).fetchone()
+        email = user['email']
+
+        sig = dump_sig(current_app, {'email': email}, RESET_SALT)
         
         reset_url = url_for('auth.reset_password_confirm', sig=sig, _external=True)
 
         msg = Message('Mudslinger Password Reset', 
             sender=('Mudslinger Client', 'mudslinger.client@gmail.com'),
-            recipients=[form.email.data])
+            recipients=[email])
         msg.html = f"""
         <span><b>You have requested a password reset.</b></span>
         <br>
@@ -203,7 +209,7 @@ def login():
         db = get_db()
         error = None
         user = db.execute(
-            "SELECT * FROM user WHERE email = ?", (form.email.data,)
+            "SELECT * FROM user WHERE lower(email) = lower(?)", (form.email.data,)
         ).fetchone()
 
         if user is None:

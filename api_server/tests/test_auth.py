@@ -118,14 +118,15 @@ def test_login(client, auth):
     with client:
         client.get("/")
         assert session["user_id"] == 1
-        assert g.user["email"] == "test@test.test"
+        assert g.user["email"] == "Test@Test.Test"
 
 
 @pytest.mark.parametrize(
     ("email", "password", "message"),
     (
         ("a", "test", b"Incorrect email."),
-        ("test@test.test", "a", b"Incorrect password.")
+        ("test@test.test", "a", b"Incorrect password."),
+        ("Test@Test.Test", "a", b"Incorrect password."),
     ),
 )
 def test_login_validate_input(auth, email, password, message):
